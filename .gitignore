@@ -5,3 +5,4 @@ vs/
 *.bak
 *.vs
 *.phpproj
+*.user
