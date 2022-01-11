@@ -1,0 +1,7 @@
+bin/
+obj/
+vs/
+*.suo
+*.bak
+*.vs
+*.phpproj
