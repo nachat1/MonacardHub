@@ -18,6 +18,13 @@ class Counterparty {
 
     }
 
+    static function get_issuances($start_block_index) { // ãŒÀ1000Œ, Å‰‚Ì“o˜^‚Íblock_index:2446815
+
+        $result = Counterparty_Reader::read_proxy_api('get_issuances', ['filters' => [['field' => "block_index", 'op' => ">=", 'value' => $start_block_index], ['field' => "description", 'op' => "LIKE", 'value' => "%monacard%"]] , "order_by" => "tx_index", "order_dir" => "ASC" ]);
+        return $result;
+
+    }
+
 }
 
 class Counterparty_Reader {

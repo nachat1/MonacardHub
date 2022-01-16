@@ -16,11 +16,11 @@ class Config {
 
 }
 
-class DatabaseConfig {
+class Database_Config {
 
     public static $PATH = "localhost";
     public static $NAME = "monacard";
     public static $USER = "root";
-    public static $PASSWORD = "***";
+    public static $PASSWORD = "basic321";
 
 }

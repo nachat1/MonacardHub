@@ -1,30 +1,54 @@
 <?php
 
 require_once __DIR__ . '/../classes/monacard1.php';
+require_once __DIR__ . '/../classes/asset.php';
 
-class card {
+class Card {
 
     public $id;
     public $asset;
     public $card_name;
     public $owner_name;
     public $imgur_url;
-    public $add_description;
+    public $description;
     public $tw_id;
     public $tw_name;
     public $status;
     public $tag;
     public $cid;
     public $ver;
+    public $tx_hash;
     public $regist_time;
     public $update_time;
 
-    public function load_from_asset_info() {
+    public function load_from_issuance_info($json) {
+
+        $parsed_description = new Parsed_Description();
+        $parsed_description->load_from_string($json->description);
+
+        // Monacard2.0‚ÌŽd—l‚ð–ž‚½‚µ‚Ä‚¢‚È‚¢ê‡
+        if(!$parsed_description->is_available()) {
+            return;
+        }
+
+        $this->asset = $json->asset;
+        $this->card_name = $parsed_description->card_name;
+        $this->owner_name = $parsed_description->owner_name;
+        $this->imgur_url = "";
+        $this->cid = $parsed_description->cid;
+        $this->ver = $parsed_description->ver;
+        $this->description = $parsed_description->add_description;
+        $this->tag = $parsed_description->tag;
+        $this->tx_hash = $json->tx_hash;
 
     }
 
     public function get_limited_card_name($limit = 15) {
         return mb_substr($this->card_name, 0, $limit);
+    }
+
+    public function get_limited_description($limit = 1000) {
+        return mb_substr($this->description, 0, $limit);
     }
 
     public function get_m_size_image_url() {

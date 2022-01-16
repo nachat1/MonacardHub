@@ -2,14 +2,25 @@
 
 require_once __DIR__ . '/../classes/card.php';
 
-//$monacard = new Monacard1();
-//$monacard->load();
-
 class Monacard1 {
+
+    public $card;
+
+    public function load($asset_name) {
+
+        $monacard1_list = new Monacard1_List();
+        $monacard1_list->load();
+        $this->card = $monacard1_list->search_card($asset_name);
+
+    }
+
+}
+
+class Monacard1_List {
 
     public $cards = [];
 
-    public function load() {
+    public function load_all() {
 
         $json = file_get_contents(__DIR__ . '/../data/monacard1.0_metadata.json');
         if ($json === false) {
@@ -48,7 +59,7 @@ class Monacard1 {
         $card->card_name = $json['card_name'];
         $card->owner_name = $json['owner_name'];
         $card->imgur_url = $json['imgur_url'];
-        $card->add_description = $json['add_description'];
+        $card->description = $json['add_description'];
         $card->tw_id = $json['tw_id'];
         $card->tw_name = $json['tw_name'];
         $card->status = $json['is_good_status'];

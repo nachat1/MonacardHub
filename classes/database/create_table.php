@@ -2,17 +2,15 @@
 
 require_once __DIR__ . '/../../config/config.php';
 
-CreateTable::create_cards_table();
-
-class CreateTable {
+class Create_Table {
 
     public static function create_cards_table() {
 
         try {
 
-            $pdo = CreateTable::GetDbHandle();
+            $pdo = Create_Table::GetDbHandle();
 
-            $prepare = $pdo->prepare(CreateTable::create_card_table_sql());
+            $prepare = $pdo->prepare(Create_Table::create_card_table_sql());
 
             $prepare->execute();
 
@@ -53,9 +51,9 @@ class CreateTable {
     private static function GetDbHandle() {
 
         $pdo = new PDO(
-            'mysql:dbname='.DatabaseConfig::$NAME.';host='.DatabaseConfig::$PATH.';charset=utf8mb4',
-            DatabaseConfig::$USER,
-            DatabaseConfig::$PASSWORD,
+            'mysql:dbname='.Database_Config::$NAME.';host='.Database_Config::$PATH.';charset=utf8mb4',
+            Database_Config::$USER,
+            Database_Config::$PASSWORD,
             [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
