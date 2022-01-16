@@ -4,18 +4,18 @@ require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../classes/counterparty.php';
 require_once __DIR__ . '/../classes/asset.php';
 require_once __DIR__ . '/../classes/utils.php';
+require_once __DIR__ . '/../classes/card.php';
+require_once __DIR__ . '/../classes/card_info_manager.php';
 
 //$asset_name = $_GET['asset'];
 //if(!isset($asset_name)) {
 //    exit('Invalid parameter.');
 //}
 
-$asset = new Asset_Info();
-$asset_info_array = Counterparty::get_asset_info('HINAICHI.2022');
-$asset->load_from_object($asset_info_array);
-$asset->load_description();
+$card_info_manager = new CardInfoManager("HINAICHI.2022");
+$card = $card_info_manager->get_card();
 
-$image_url = "https://ipfs.io/ipfs/" . Utils::sanitize($asset->parsed_description->cid);
+$image_url = "https://ipfs.io/ipfs/" . Utils::sanitize($card->cid);
 
 ?>
 
@@ -34,7 +34,7 @@ $image_url = "https://ipfs.io/ipfs/" . Utils::sanitize($asset->parsed_descriptio
     <div class="card-list-box">
         <?php
         echo '<div class="panel panel-warning panel-card" style="margin-bottom:30px">';
-        echo '  <!--<div class="panel-heading card-heading">'.Utils::sanitized_echo($asset->parsed_description->card_name).'</div>-->';
+        echo '  <!--<div class="panel-heading card-heading">'.Utils::sanitized_echo($card->card_name).'</div>-->';
         echo '  <div class="panel-body card-body-bg"><a href="'.$image_url.'"><img class="img-responsive" src="'.$image_url.'" /></a></div>';
         echo '</div>';
         ?>
@@ -46,43 +46,41 @@ $image_url = "https://ipfs.io/ipfs/" . Utils::sanitize($asset->parsed_descriptio
 
                 <div class="form-group">
                     <label>カード名</label>
-                    <input type="text" class="form-control card_detail" readonly="readonly" value="<?php Utils::sanitized_echo($asset->parsed_description->card_name) ?>" />
+                    <input type="text" class="form-control card_detail" readonly="readonly" value="<?php Utils::sanitized_echo($card->card_name) ?>" />
                 </div>
 
                 <div class="form-group">
                     <label>発行者の名前</label>
-                    <input type="text" class="form-control card_detail" readonly="readonly" value="<?php Utils::sanitized_echo($asset->parsed_description->owner_name) ?>" />
+                    <input type="text" class="form-control card_detail" readonly="readonly" value="<?php Utils::sanitized_echo($card->owner_name) ?>" />
                 </div>
 
                 <div class="form-group">
                     <label>カードの説明</label>
-                    <textarea class="form-control card_detail" rows="5" readonly="readonly">
-                        <?php Utils::sanitized_echo($asset->parsed_description->add_description) ?>
-                    </textarea>
+                    <textarea class="form-control card_detail" rows="5" readonly="readonly"><?php Utils::sanitized_echo($card->add_description) ?></textarea>
                 </div>
 
                 <div class="form-group">
                     <label>IPFS CID</label>
-                    <a style="overflow-wrap: break-word; font-size:0.8em" class="break has_underline form-control" href="https://ipfs.io/ipfs/<?php Utils::sanitized_echo($asset->parsed_description->cid) ?>" target="_blank">
-                        <?php Utils::sanitized_echo($asset->parsed_description->cid) ?>
+                    <a style="overflow-wrap: break-word; font-size:0.8em" class="break has_underline form-control" href="https://ipfs.io/ipfs/<?php Utils::sanitized_echo($card->cid) ?>" target="_blank">
+                        <?php Utils::sanitized_echo($card->cid) ?>
                     </a>
                 </div>
 
                 <div class="form-group">
                     <label>タグ</label>
                     <br />
-                    <?php echo $asset->parsed_description->tag ?>
+                    <?php Utils::sanitized_echo($card->tag) ?>
                 </div>
 
                 <div class="form-group">
                     <label>Version</label>
-                    <input type="text" class="form-control card_detail" readonly="readonly" value="<?php Utils::sanitized_echo($asset->parsed_description->ver) ?>" />
+                    <input type="text" class="form-control card_detail" readonly="readonly" value="<?php Utils::sanitized_echo($card->ver) ?>" />
                 </div>
 
                 <div class="form-group">
                     <label>JSON</label>
                     <textarea class="form-control card_detail" rows="10" readonly="readonly">
-                        <?php Utils::sanitized_echo($asset->description) ?>
+                        <?php Utils::sanitized_echo("") ?>
                     </textarea>
                 </div>
 

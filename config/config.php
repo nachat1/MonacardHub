@@ -1,6 +1,6 @@
 <?php
 
-class config {
+class Config {
 
     // ŠÇ—ŽÒ‚Ì–¼‘O
     public static $ADMINISTRATOR_NAME = "Anonymous";
@@ -13,5 +13,14 @@ class config {
     public static $COUNTERPARTY_API_URL = "https://monapa.electrum-mona.org/_api";
     //public static $COUNTERPARTY_API_URL = "https://mpchain.info/api/cb";
     //public static $COUNTERPARTY_API_URL = "https://wallet.monaparty.me/_api";
+
+}
+
+class DatabaseConfig {
+
+    public static $PATH = "localhost";
+    public static $NAME = "monacard";
+    public static $USER = "root";
+    public static $PASSWORD = "***";
 
 }
