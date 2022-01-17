@@ -25,6 +25,13 @@ class Counterparty {
 
     }
 
+    static function get_issuances_tx_index($last_tx_index) {
+
+        $result = Counterparty_Reader::read_proxy_api('get_issuances', ['filters' => [['field' => "tx_index", 'op' => ">", 'value' => $last_tx_index], ['field' => "description", 'op' => "LIKE", 'value' => "%monacard%"]] , "order_by" => "tx_index", "order_dir" => "ASC" ]);
+        return $result;
+
+    }
+
 }
 
 class Counterparty_Reader {

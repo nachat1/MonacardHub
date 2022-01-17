@@ -38,6 +38,7 @@ class Create_Table {
         $sql .= " `cid` varchar(255) NOT NULL,";
         $sql .= " `ver` varchar(255) NOT NULL DEFAULT '1',";
         $sql .= " `tx_hash` varchar(255) NOT NULL COMMENT '“o˜^Žž‚Ìissuance‚ÌtxƒnƒbƒVƒ…',";
+        $sql .= " `tx_index` bigint(20) DEFAULT NULL COMMENT '“o˜^Žž‚Ìtx index',";
         $sql .= " `regist_time` bigint(20) DEFAULT NULL,";
         $sql .= " `update_time` bigint(20) DEFAULT NULL,";
         $sql .= " PRIMARY KEY (`id`),";

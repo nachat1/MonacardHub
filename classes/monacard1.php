@@ -56,6 +56,7 @@ class Monacard1_List {
 
         $card->id = $json['id'];
         $card->asset = $json['asset'];
+        $card->asset_longname = $json['asset_longname'];
         $card->card_name = $json['card_name'];
         $card->owner_name = $json['owner_name'];
         $card->imgur_url = $json['imgur_url'];

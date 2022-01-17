@@ -7,6 +7,7 @@ class Card {
 
     public $id;
     public $asset;
+    public $asset_longname;
     public $card_name;
     public $owner_name;
     public $imgur_url;
@@ -18,6 +19,7 @@ class Card {
     public $cid;
     public $ver;
     public $tx_hash;
+    public $tx_index;
     public $regist_time;
     public $update_time;
 
@@ -32,6 +34,7 @@ class Card {
         }
 
         $this->asset = $json->asset;
+        $this->asset_longname = $json->asset_longname;
         $this->card_name = $parsed_description->card_name;
         $this->owner_name = $parsed_description->owner_name;
         $this->imgur_url = "";
@@ -40,6 +43,7 @@ class Card {
         $this->description = $parsed_description->add_description;
         $this->tag = $parsed_description->tag;
         $this->tx_hash = $json->tx_hash;
+        $this->tx_index = $json->tx_index;
 
     }
 

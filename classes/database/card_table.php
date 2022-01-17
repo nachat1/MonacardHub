@@ -38,7 +38,7 @@ class Card_Table {
 
         try {
 
-            $prepare = $pdo->prepare('insert into cards(asset, asset_longname, assetgroup, name, issuer, imgur, description, tag, cid, ver, tx_hash, regist_time, update_time) VALUES (?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?) on duplicate key update name=?, issuer=?, description=?, tag=?, cid=?, ver=?, tx_hash=?, update_time=?');
+            $prepare = $pdo->prepare('insert into cards(asset, asset_longname, assetgroup, name, issuer, imgur, description, tag, cid, ver, tx_hash, tx_index, regist_time, update_time) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?) on duplicate key update name=?, issuer=?, description=?, tag=?, cid=?, ver=?, tx_hash=?, tx_index=?, update_time=?');
 
             $prepare->bindValue(1, $card->asset, PDO::PARAM_STR);
             $prepare->bindValue(2, $card->asset_longname, PDO::PARAM_STR);
@@ -51,18 +51,38 @@ class Card_Table {
             $prepare->bindValue(9, $card->cid, PDO::PARAM_STR);
             $prepare->bindValue(10, $card->ver, PDO::PARAM_STR);
             $prepare->bindValue(11, $card->tx_hash, PDO::PARAM_STR);
-            $prepare->bindValue(12, 0, PDO::PARAM_INT);
+            $prepare->bindValue(12, $card->tx_index, PDO::PARAM_INT);
             $prepare->bindValue(13, 0, PDO::PARAM_INT);
-            $prepare->bindValue(14, $card->card_name, PDO::PARAM_STR);
-            $prepare->bindValue(15, $card->owner_name, PDO::PARAM_STR);
-            $prepare->bindValue(16, $card->get_limited_description(), PDO::PARAM_STR);
-            $prepare->bindValue(17, $card->tag, PDO::PARAM_STR);
-            $prepare->bindValue(18, $card->cid, PDO::PARAM_STR);
-            $prepare->bindValue(19, $card->ver, PDO::PARAM_STR);
-            $prepare->bindValue(20, $card->tx_hash, PDO::PARAM_STR);
-            $prepare->bindValue(21, 0, PDO::PARAM_INT);
+            $prepare->bindValue(14, 0, PDO::PARAM_INT);
+            $prepare->bindValue(15, $card->card_name, PDO::PARAM_STR);
+            $prepare->bindValue(16, $card->owner_name, PDO::PARAM_STR);
+            $prepare->bindValue(17, $card->get_limited_description(), PDO::PARAM_STR);
+            $prepare->bindValue(18, $card->tag, PDO::PARAM_STR);
+            $prepare->bindValue(19, $card->cid, PDO::PARAM_STR);
+            $prepare->bindValue(20, $card->ver, PDO::PARAM_STR);
+            $prepare->bindValue(21, $card->tx_hash, PDO::PARAM_STR);
+            $prepare->bindValue(22, $card->tx_index, PDO::PARAM_INT);
+            $prepare->bindValue(23, 0, PDO::PARAM_INT);
             $prepare->execute();
 
+        }
+        catch (PDOException $e) {
+            header('Content-Type: text/plain; charset=UTF-8', true, 500);
+            exit('Faild to insert new monacard. ' . $e->getMessage());
+        }
+
+    }
+
+    public static function get_last_txid() {
+
+        try {
+
+            $pdo = Card_Table::GetDbHandle();
+
+            $prepare = $pdo->prepare('select max(tx_index) from cards');
+            $prepare->execute();
+            $result = $prepare->fetchAll();
+            return $result[0]["max(tx_index)"];
 
         }
         catch (PDOException $e) {

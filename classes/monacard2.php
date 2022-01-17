@@ -95,4 +95,18 @@ class Monacard2_List {
 
     }
 
+    public function load_from($tx_index) {
+
+        $json = Counterparty::get_issuances_tx_index($tx_index);
+
+        foreach($json as $row) {
+            $card = new Card();
+            $card->load_from_issuance_info($row);
+            if(!empty($card->card_name)) {
+                $this->card_list[] = $card;
+            }
+        }
+
+    }
+
 }
