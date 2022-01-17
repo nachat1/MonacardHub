@@ -64,7 +64,7 @@ class Parsed_Description {
 
 }
 
-class Asset_Info {
+class Asset {
 
     public $asset_longname;
     public $asset;
@@ -79,7 +79,14 @@ class Asset_Info {
     public $assetgroup;
     public $parsed_description;
 
-    public function load_from_object($info) {
+    public function load_from_api($asset_name) {
+
+        $asset_info = Counterparty::get_asset_info($asset_name);
+        $this->load_from_object($asset_info);
+
+    }
+
+    private function load_from_object($info) {
 
         $this->asset_longname = $info->asset_longname;
         $this->asset = $info->asset;

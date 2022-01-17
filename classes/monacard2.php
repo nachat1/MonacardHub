@@ -10,9 +10,8 @@ class Monacard2 {
 
     public function load($asset_name) {
 
-        $asset = new Asset_Info();
-        $asset_info_array = Counterparty::get_asset_info($asset_name);
-        $asset->load_from_object($asset_info_array);
+        $asset = new Asset();
+        $asset->load_from_api($asset_name);
         $asset->load_description();
 
         $this->card = $this->change_format_to_card($asset);

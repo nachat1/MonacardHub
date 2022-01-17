@@ -92,6 +92,43 @@ class Card_Table {
 
     }
 
+    public static function select_card($asset_name) {
+
+        try {
+
+            $pdo = Card_Table::GetDbHandle();
+
+            $prepare = $pdo->prepare("select * from cards where asset = ? and status <> 'delete'");
+            $prepare->bindValue(1, $asset_name, PDO::PARAM_STR);
+            $prepare->execute();
+            return $prepare->fetchAll()[0];
+
+        }
+        catch (PDOException $e) {
+            header('Content-Type: text/plain; charset=UTF-8', true, 500);
+            exit('Faild to connect db.');
+        }
+
+    }
+
+    public static function select_cards() {
+
+        try {
+
+            $pdo = Card_Table::GetDbHandle();
+
+            $prepare = $pdo->prepare("select * from cards where status <> 'delete'");
+            $prepare->execute();
+            return $prepare->fetchAll();
+
+        }
+        catch (PDOException $e) {
+            header('Content-Type: text/plain; charset=UTF-8', true, 500);
+            exit('Faild to connect db.');
+        }
+
+    }
+
     public static function GetDbHandle() {
 
         $pdo = new PDO(

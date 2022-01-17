@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../classes/monacard1.php';
 require_once __DIR__ . '/../classes/asset.php';
+require_once __DIR__ . '/../classes/database/card_table.php';
 
 class Card {
 
@@ -44,6 +45,29 @@ class Card {
         $this->tag = $parsed_description->tag;
         $this->tx_hash = $json->tx_hash;
         $this->tx_index = $json->tx_index;
+
+    }
+
+    public function load_from_database($asset_name) {
+
+        $result = Card_Table::select_card($asset_name);
+        $this->load_from_db_row($result);
+
+    }
+
+    public function load_from_db_row($row) {
+
+        $this->asset = $row["asset"];
+        $this->asset_longname = $row["asset_longname"];
+        $this->card_name = $row["name"];
+        $this->owner_name = $row["issuer"];
+        $this->imgur_url = $row["imgur"];
+        $this->cid = $row["cid"];
+        $this->ver = $row["ver"];
+        $this->description = $row["description"];
+        $this->tag = $row["tag"];
+        $this->tx_hash = $row["tx_hash"];
+        $this->tx_index = $row["tx_index"];
 
     }
 
