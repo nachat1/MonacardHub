@@ -117,14 +117,14 @@ class Card_Table {
 
             $pdo = Card_Table::GetDbHandle();
 
-            $prepare = $pdo->prepare("select * from cards where status <> 'delete'");
+            $prepare = $pdo->prepare("select * from cards where status <> 'delete' order by id desc");
             $prepare->execute();
             return $prepare->fetchAll();
 
         }
         catch (PDOException $e) {
             header('Content-Type: text/plain; charset=UTF-8', true, 500);
-            exit('Faild to connect db.');
+            return false;
         }
 
     }
