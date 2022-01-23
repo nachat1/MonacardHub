@@ -9,6 +9,7 @@ class Card {
     public $id;
     public $asset;
     public $asset_longname;
+    public $asset_group;
     public $card_name;
     public $owner_name;
     public $imgur_url;
@@ -36,6 +37,7 @@ class Card {
 
         $this->asset = $json->asset;
         $this->asset_longname = $json->asset_longname;
+        $this->asset_group = $json->asset_group;
         $this->card_name = $parsed_description->card_name;
         $this->owner_name = $parsed_description->owner_name;
         $this->imgur_url = "";
@@ -57,8 +59,10 @@ class Card {
 
     public function load_from_db_row($row) {
 
+        $this->id = $row["id"];
         $this->asset = $row["asset"];
         $this->asset_longname = $row["asset_longname"];
+        $this->asset_group = $row["asset_group"];
         $this->card_name = $row["name"];
         $this->owner_name = $row["issuer"];
         $this->imgur_url = $row["imgur"];
@@ -68,6 +72,16 @@ class Card {
         $this->tag = $row["tag"];
         $this->tx_hash = $row["tx_hash"];
         $this->tx_index = $row["tx_index"];
+
+    }
+
+    public function get_common_name() {
+
+        if(isset($this->asset_longname)) {
+            return $this->asset_longname;
+        } else {
+            return $this->asset;
+        }
 
     }
 
@@ -126,5 +140,86 @@ class Card {
     public function get_warning() {
         return '';
     }
+
+}
+
+class Card_List_For_Api {
+
+    public $list = [];
+
+    public function add($asset_name) {
+        $this->list[] = $asset_name;
+    }
+
+}
+
+class Card_Detail_List_For_Api {
+
+    public $details = array();
+
+    public function add($card) {
+        $this->details[] = $card;
+    }
+
+}
+
+class Card_Detail_For_Api {
+
+    public function load_from_db_row($row) {
+
+        $card = new Card();
+        $card->load_from_db_row($row);
+
+        $this->id = $card->id;
+        $this->asset_common_name = $card->get_common_name();
+        $this->asset = $card->asset;
+        $this->asset_longname = $card->asset_longname;
+        $this->assetgroup = $card->asset_group;
+        $this->card_name = $card->card_name;
+        $this->owner_name = $card->owner_name;
+        $this->imgur_url = $card->get_filtered_url_imgur();
+        $this->add_description = $card->description;
+        $this->tw_id = $card->tw_id;
+        $this->tw_name = $card->tw_name;
+        $this->tag = $card->tag;
+        $this->cid = $card->cid;
+        $this->ver = $card->ver;
+        $this->is_good_status = $card->is_status_good();
+        $this->regist_time = $card->regist_time;
+        $this->update_time = $card->update_time;
+
+    }
+
+    public function sanitize() {
+
+        $this->card_name = Utils::sanitize($this->card_name);
+        $this->owner_name = Utils::sanitize($this->owner_name);
+        $this->imgur_url = Utils::sanitize($this->imgur_url);
+        $this->add_description = Utils::sanitize($this->add_description);
+        $this->tw_id = Utils::sanitize($this->tw_id);
+        $this->tw_name = Utils::sanitize($this->tw_name);
+        $this->tag = Utils::sanitize($this->tag);
+        $this->cid = Utils::sanitize($this->cid);
+        $this->ver = Utils::sanitize($this->ver);
+
+    }
+
+    public $id;
+    public $asset_common_name;
+    public $asset;
+    public $asset_longname;
+    public $assetgroup;
+    public $card_name;
+    public $owner_name;
+    public $imgur_url;
+    public $add_description;
+    public $tw_id;
+    public $tw_name;
+    public $tag;
+    public $cid;
+    public $ver;
+    public $is_good_status;
+    public $regist_time;
+    public $update_time;
 
 }

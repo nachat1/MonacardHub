@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../api_header.php';
 require_once __DIR__ . '/../../classes/database/card_table.php';
+require_once __DIR__ . '/../../classes/card.php';
 
 $card_list_db = Card_Table::select_cards();
 
@@ -24,11 +25,3 @@ echo $json;
 
 
 ?>
-
-<?php
-
-class Card_List_For_Api {
-
-    public $list = [];
-
-}
