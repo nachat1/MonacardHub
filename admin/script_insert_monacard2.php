@@ -1,5 +1,7 @@
 <?php
 
+echo("Start to insert monacard2.0 cards.");
+
 require_once __DIR__ . '/../classes/card.php';
 require_once __DIR__ . '/../classes/monacard2.php';
 require_once __DIR__ . '/../classes/database/card_table.php';
@@ -14,6 +16,6 @@ foreach($monacard->card_list as $card) {
     echo "<br>";
 }
 
-echo("ok.");
+echo("Inserted successfully.");
 
 ?>

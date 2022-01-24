@@ -63,7 +63,7 @@ class Monacard1_List {
         $card->description = $json['add_description'];
         $card->tw_id = $json['tw_id'];
         $card->tw_name = $json['tw_name'];
-        $card->status = $json['is_good_status'];
+        $card->status = $json['is_good_status'] == "true" ? "good" : "bad";
         $card->tag = $json['tag'];
         $card->cid = $json['cid'];
         $card->ver = $json['ver'];

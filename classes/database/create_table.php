@@ -33,7 +33,7 @@ class Create_Table {
         $sql .= " `issuer` varchar(255) DEFAULT NULL,";
         $sql .= " `imgur` varchar(255) DEFAULT NULL,";
         $sql .= " `description` varchar(2000) DEFAULT NULL,";
-        $sql .= " `status` varchar(100) NOT NULL DEFAULT 'ok',";
+        $sql .= " `status` varchar(100) NOT NULL DEFAULT 'good',";
         $sql .= " `tag` varchar(255) NOT NULL DEFAULT '',";
         $sql .= " `cid` varchar(255) NOT NULL,";
         $sql .= " `ver` varchar(255) NOT NULL DEFAULT '1',";

@@ -8,7 +8,7 @@ class Card_Table {
 
         try {
 
-            $prepare = $pdo->prepare('insert into cards(asset, asset_longname, assetgroup, name, issuer, imgur, description, tag, cid, ver, tx_hash, regist_time, update_time) VALUES (?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?)');
+            $prepare = $pdo->prepare('insert into cards(asset, asset_longname, assetgroup, name, issuer, imgur, description, status, tag, cid, ver, tx_hash, regist_time, update_time) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?)');
 
             $prepare->bindValue(1, $card->asset, PDO::PARAM_STR);
             $prepare->bindValue(2, $card->asset_longname, PDO::PARAM_STR);
@@ -17,12 +17,13 @@ class Card_Table {
             $prepare->bindValue(5, $card->owner_name, PDO::PARAM_STR);
             $prepare->bindValue(6, $card->imgur_url, PDO::PARAM_STR);
             $prepare->bindValue(7, $card->description, PDO::PARAM_STR);
-            $prepare->bindValue(8, $card->tag, PDO::PARAM_STR);
-            $prepare->bindValue(9, $card->cid, PDO::PARAM_STR);
-            $prepare->bindValue(10, $card->ver, PDO::PARAM_STR);
-            $prepare->bindValue(11, "", PDO::PARAM_STR);
-            $prepare->bindValue(12, $card->regist_time, PDO::PARAM_INT);
-            $prepare->bindValue(13, $card->update_time, PDO::PARAM_INT);
+            $prepare->bindValue(8, $card->status, PDO::PARAM_STR);
+            $prepare->bindValue(9, $card->tag, PDO::PARAM_STR);
+            $prepare->bindValue(10, $card->cid, PDO::PARAM_STR);
+            $prepare->bindValue(11, $card->ver, PDO::PARAM_STR);
+            $prepare->bindValue(12, "", PDO::PARAM_STR);
+            $prepare->bindValue(13, $card->regist_time, PDO::PARAM_INT);
+            $prepare->bindValue(14, $card->update_time, PDO::PARAM_INT);
             $prepare->execute();
 
 
@@ -197,6 +198,45 @@ class Card_Table {
             $prepare->bindValue(1, $unixtime, PDO::PARAM_INT);
             $prepare->execute();
             return $prepare->fetchAll();
+
+        }
+        catch (PDOException $e) {
+            header('Content-Type: text/plain; charset=UTF-8', true, 500);
+            return false;
+        }
+
+    }
+
+    public static function select_banned_cards() {
+
+        try {
+
+            $pdo = Card_Table::GetDbHandle();
+
+            $prepare = $pdo->prepare("select * from cards where status <> 'good' order by id desc");
+            $prepare->execute();
+            return $prepare->fetchAll();
+
+        }
+        catch (PDOException $e) {
+            header('Content-Type: text/plain; charset=UTF-8', true, 500);
+            return false;
+        }
+
+    }
+
+    public static function update_card_sutatus($asset_name, $status, $update_time) {
+
+        try {
+
+            $pdo = Card_Table::GetDbHandle();
+
+            $prepare = $pdo->prepare("update cards set status = ?, update_time = ? where asset = ?");
+            $prepare->bindValue(1, $status, PDO::PARAM_STR);
+            $prepare->bindValue(2, $update_time, PDO::PARAM_INT);
+            $prepare->bindValue(3, $asset_name, PDO::PARAM_STR);
+            $prepare->execute();
+            return true;
 
         }
         catch (PDOException $e) {
