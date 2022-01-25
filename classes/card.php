@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../classes/monacard1.php';
 require_once __DIR__ . '/../classes/asset.php';
+require_once __DIR__ . '/../classes/utils.php';
 require_once __DIR__ . '/../classes/database/card_table.php';
 
 class Card {
@@ -69,6 +70,7 @@ class Card {
         $this->cid = $row["cid"];
         $this->ver = $row["ver"];
         $this->description = $row["description"];
+        $this->status = $row["status"];
         $this->tag = $row["tag"];
         $this->tx_hash = $row["tx_hash"];
         $this->tx_index = $row["tx_index"];
@@ -111,7 +113,7 @@ class Card {
 
     public function get_filtered_url_imgur() {
 
-        if($this->status == 'ok') {
+        if($this->status == 'good') {
             return $this->imgur_url;
         } else {
             return 'https://i.imgur.com/ZS5x3gL.png'; // ˆá”½‰æ‘œ
@@ -121,10 +123,20 @@ class Card {
 
     public function get_filtered_url_ipfs() {
 
-        if($this->status == 'ok') {
-            return 'https://ipfs.io/ipfs/' . Utils::c($this->cid);
+        if($this->status == 'good') {
+            return 'https://cloudflare-ipfs.com/ipfs/' . Utils::sanitize($this->cid);
         } else {
-            return 'https://i.imgur.com/ZS5x3gL.png'; // ˆá”½‰æ‘œ
+            return 'https://cloudflare-ipfs.com/ipfs/bafkrmigia4yfuknnygijg3yrv4zfb4onbvg5f2pegqidbppgqasfi7ybqm';
+        }
+
+    }
+
+    public function get_filtered_cid() {
+
+        if($this->status == 'good') {
+            return Utils::sanitize($this->cid);
+        } else {
+            return 'bafkrmigia4yfuknnygijg3yrv4zfb4onbvg5f2pegqidbppgqasfi7ybqm';
         }
 
     }

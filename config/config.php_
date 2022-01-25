@@ -2,12 +2,17 @@
 
 class Config {
 
-    // 管理者の名前
+    // 公開する管理者の名前
     public static $ADMINISTRATOR_NAME = "Anonymous";
 
     // 外部APIと通信する時のSSL設定
     // 基本的にはtrueにして、テスト環境などでエラーが出るときだけ一時的にfalseにしてください。
     public static $SETTING_CURLOPT_SSL_VERIFYPEER = false;
+
+    // BANカードのデータを取得するサーバーのAPI
+    // card.mona.jpまたはMonacardHubのサーバーのcard_detail.php指定してください。
+    // 他のサーバーに依存せず自分で決定する場合は空文字 "" にしてください。
+    public static $URL_SHARE_BAN_LIST = "https://card.mona.jp/api/ban_list.php";
 
     // counterparty apiのURL。APIノードが落ちているときは変更してください。
     public static $COUNTERPARTY_API_URL = "https://monapa.electrum-mona.org/_api";
@@ -18,9 +23,9 @@ class Config {
 
 class Database_Config {
 
-    public static $PATH = "localhost";
-    public static $NAME = "monacard";
-    public static $USER = "root";
-    public static $PASSWORD = "********";
+    public static $PATH = "localhost"; // URL
+    public static $NAME = "monacard"; // Database name
+    public static $USER = "*****"; // User name
+    public static $PASSWORD = "*****"; // Password
 
 }

@@ -1,0 +1,19 @@
+body {
+    font-family: Nunito, Meiryo !important;
+}
+.card-body-bg {
+    margin: 4px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+    height: 600px;
+    width: 420px;
+    margin-bottom: 15px;
+}
+@media screen and (max-width: 1000px) {
+
+    .card-body-bg {
+        height: 400px;
+        width: 280px;
+    }
+
+}

@@ -6,4 +6,5 @@ vs/
 *.vs
 *.phpproj
 *.user
+test.php
 config.php

@@ -5,6 +5,10 @@ echo("Start to sync banned cards.<br>");
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../classes/database/card_table.php';
 
+if(Config::$URL_SHARE_BAN_LIST == "") {
+    exit("Settings not to sync");
+}
+
 $json = file_get_contents(Config::$URL_SHARE_BAN_LIST);
 if ($json === false) {
     exit("Faid to connect API.");
