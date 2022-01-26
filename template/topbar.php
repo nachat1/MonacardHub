@@ -6,12 +6,12 @@
     </button>
 
     <!-- Topbar Search -->
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/explorer/card_detail.php" method="get">
         <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Asset name or Asset long name"
+            <input type="text" name="asset" class="form-control bg-light border-0 small" placeholder="Asset name or Asset long name"
                    aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
                 </button>
             </div>
@@ -30,19 +30,20 @@
             <!-- Dropdown - Messages -->
             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                  aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
+                <form class="form-inline mr-auto w-100 navbar-search" action="/explorer/card_detail.php" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small"
-                               placeholder="Search for..." aria-label="Search"
+                        <input type="text" name="asset" class="form-control bg-light border-0 small"
+                               placeholder="Asset or Asset long name" aria-label="Search"
                                aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
+
         </li>
 
     </ul>
