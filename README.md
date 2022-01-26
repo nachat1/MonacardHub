@@ -1,21 +1,27 @@
 # MonacardHub
+
+## 機能
 Monacard explorer, api etc.
-MIT License.
-PHP7.2, MySQL5.7
 
-���̂Ƃ���͂قړ����܂���B���ݒ肷��قڂł��܂���B
+## 環境
+PHP7.2, MySQL5.7  
+今のところはほぼ動きません。環境設定すらほぼできません。
 
-[�ړI]
-card.mona.jp���Ȃ��Ȃ��Ă����v�Ȃ悤�ɂ��邽�߂̃v���W�F�N�g�ł��BOSS�Ƃ���monacard��\��������API��񋟂���T�C�g�ɂȂ�܂��B
-card.mona.jp�ɂ���悤�Ƀ��O�C���@�\��Twitter�A�g�@�\�Ȃǂ̂�������֗������ǂȂ��Ă����Ƃ��Ȃ�@�\�͑ΏۊO�ł��B�ۗL�J�[�h�\���@�\������܂���B
+## プロジェクトの目的
+card.mona.jpがなくなっても大丈夫なようにするためのプロジェクトです。OSSとしてmonacardを表示したりAPIを提供するサイトになります。  
+card.mona.jpにあるようにログイン機能やTwitter連携機能などのあったら便利だけどなくても何とかなる機能は対象外です。保有カード表示機能もありません。  
+必要な機能だけがシンプルにまとまったサイトを目指します。
 
-[�����ݒ�]
-���̃T�C�g���g�����߂̏���
-1. ���̃T�C�g�̃R�[�h��PHP�̓����Ă���T�[�o�[�ɐݒu
-2. /config/config.php�̓��e��ݒ�
-3. /admin/script_download_monacard1_metadata.php�����s���ă`�F�[������_�E�����[�h����.json�t�@�C����/data���ɔz�u
-4. /admin/script_make_tables.php�����s��MySQL�̃e�[�u�����쐬
-5. monacard���W�p��cron��ݒ�
+## 初期設定
+1. このサイトのコードをPHPの動いているサーバーに設置  
+2. /config/config.php_の内容を設定し、config.phpにリネーム  
+3. /admin/script_download_monacard1_metadata.phpを実行してチェーンからダウンロードした.jsonファイルを/data下に配置  
+4. /admin/script_make_tables.phpを実行しMySQLのテーブルを作成 
+5. /admin/script_insert_monacard1.phpを実行
+6. /admin/script_insert_monacard2.phpを実行
+7. monacard収集用のcronを設定 
+8. BANカードリスト同期用のcronを設定 
 
-[����]
-���̃T�C�g�͒���I��monacard�����W��MySQL�Ɋi�[���܂��B�T�C�g�̃J�[�h�\���@�\��API�ɃA�N�Z�X�������MySQL�ɓo�^���ꂽ���i�J�[�h�̃f�[�^���������Ă��ĕ\�����܂��B
+## サイトの仕組み
+このサイトは定期的にmonacardを収集しMySQLに格納します。  
+サイトのカード表示機能やAPIにアクセスがあるとMySQLに登録されたモナカードのデータを引っ張ってきて表示します。
