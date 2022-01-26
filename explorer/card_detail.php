@@ -25,6 +25,7 @@ $card_table_html .= '<tr><td>Description</td><td>'.Utils::sanitize($card->descri
 $card_table_html .= '<tr><td>Tag</td><td>'.Utils::sanitize($card->tag) .'</td></tr>';
 $card_table_html .= '<tr><td>IPFS CID</td><td>'.Utils::sanitize($card->get_filtered_cid()) .'</td></tr>';
 $card_table_html .= '<tr><td>Version</td><td>'.Utils::sanitize($card->ver) .'</td></tr>';
+$card_table_html .= '<tr><td>Banned reason</td><td>'.Utils::sanitize($card->status) .'</td></tr>';
 
 $asset_table_html .= '<tr><td style="width:30%">Asset</td><td>'.Utils::sanitize($asset->asset) .'</td></tr>';
 $asset_table_html .= '<tr><td>Asset Longname</td><td>'.Utils::sanitize($asset->asset_longname) .'</td></tr>';
@@ -111,7 +112,12 @@ $asset_table_html .= '<tr><td>Reassignable</td><td>'.($asset->reassignable ? 'tr
                     </div>
 
                 </div>
-
+                <p><a href="/explorer/select_ban_reason.php?asset=<?php Utils::sanitized_echo($card->asset) ?> " class="btn btn-light btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">管理画面</span>
+                </a></p>
                 <!-- /.container-fluid -->
 
             </div>

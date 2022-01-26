@@ -20,7 +20,7 @@ if($card_list_db == false) {
 $card_list = new Card_List_For_Api();
 foreach($card_list_db as $card) {
 
-    if(!empty($card['cid']) && $card['status'] == "ok") {
+    if(!empty($card['cid']) && $card['status'] == "good") {
         $cid_info = new Cid_Info();
         $cid_info->cid = $card['cid'];
         $cid_info->update_time = $card['update_time'];
