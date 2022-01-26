@@ -1,7 +1,7 @@
 <?php
 
 // このファイルを実行するとMonacard1.0のメタデータをMonacoinブロックチェーンからダウンロードします。
-// ダウンロードしたファイルを7zとして解凍し、dataフォルダ直下に配置してください。
+// /data/に保存された7zファイル解凍し、dataフォルダ直下に配置してください。
 
 require_once __DIR__ . '/../classes/counterparty.php';
 
@@ -57,12 +57,7 @@ foreach($tx_hash_list as $hash) {
 }
 
 $nanaz = base64_decode($metadata_file_base64);
-$file_name = "monacard1.0metadata.7z";
+$file_name = "./../data/monacard1.0metadata.7z";
 file_put_contents($file_name, $nanaz);
-header('Content-Type: application/octet-stream');
-header('Content-Length: '.filesize($file_name));
-header('Content-disposition: attachment; filename="'.$file_name.'"');
-readfile($file_name);
-unlink($file_name);
 
 ?>
