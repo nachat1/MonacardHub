@@ -2,6 +2,7 @@
 
 // このファイルを実行するとMonacard1.0のメタデータをMonacoinブロックチェーンからダウンロードします。
 // /data/に保存された7zファイル解凍し、dataフォルダ直下に配置してください。
+// データが改ざんされているか不安な方は SHA256: 346ADEDAB73F75507625BCA3CCDE0CA7DD713AC4083D8F0DE058A6B7DA22FD40 であることを確認してください。
 
 require_once __DIR__ . '/../classes/counterparty.php';
 
@@ -59,5 +60,7 @@ foreach($tx_hash_list as $hash) {
 $nanaz = base64_decode($metadata_file_base64);
 $file_name = "./../data/monacard1.0metadata.7z";
 file_put_contents($file_name, $nanaz);
+
+exit("Downloaded monacard1.0metadata.7z in /data folder. Unzip(7z) the file and place it under /data folder. Correct hash for 7z file is SHA256: 346ADEDAB73F75507625BCA3CCDE0CA7DD713AC4083D8F0DE058A6B7DA22FD40.");
 
 ?>
