@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Input your ID and Password."
+AuthUserFile /home/*****/www/monacardhub/admin/.htpasswd
+require valid-user
