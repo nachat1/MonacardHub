@@ -1,0 +1,73 @@
+name: build-test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        operating-system: [ 'ubuntu-latest' ]
+        php: [ '7.2' ]
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: monacard
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+          - "3306:3306"
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: ${{ matrix.php }}
+          # NOTICE抑制しています。必要なら下をコメントアウトしてください。
+          ini-values: error_reporting=E_ALL&~E_NOTICE
+      - name: config settings
+        run: |
+          # config.php_についてUSER,PASSWORD,PATHをtest用に変更してconfig.phpを作成します。
+          sed -e "s/USER = \"\*\*\*\*\*\"/USER = \"admin\"/g" config/config.php_ > config/config.php
+          sed -i -e "s/PASSWORD = \"\*\*\*\*\*\"/PASSWORD = \"password\"/g" config/config.php
+          sed -i -e "s/PATH = \"localhost\"/PATH = \"127\.0\.0\.1\"/g" config/config.php
+          rm config/config.php_
+      - name: download monacard1 metadata
+        run: |
+          # monacard1.0のデータをダウンロード後、sha256sumで正しいデータか検証します。問題なければ解凍します。
+          cd admin
+          php script_download_monacard1_metadata.php
+          cd ../data
+          checksum=346adedab73f75507625bca3ccde0ca7dd713ac4083d8f0de058a6b7da22fd40
+          if ! echo "$checksum monacard1.0metadata.7z" | sha256sum -c -; then
+              echo "Checksum failed" >&2
+              exit 1
+          fi
+          7z x monacard1.0metadata.7z
+          cd ../
+      - name: make tables & insert datas
+        run: |
+          # monacard1.0および2.0のデータを挿入します。1.0のデータについて2913件が挿入されているかの検証します。
+          cd admin
+          echo -e "\nmake tables"
+          php script_make_tables.php
+          echo -e "\ninsert monacard1.0's data"
+          php script_insert_monacard1.php
+          # 比較が何故か出来ないので一旦ファイルにcount数を出力してgrepで2913の文字が含まれてればOKとしています。
+          mysql --protocol=tcp -h localhost -P 3306 -u admin -ppassword -e "USE monacard; select count(id) from cards" > datacountfile
+          if ! grep 2913 datacountfile; then
+              echo "record count is not 2913(monacard1.0)"
+              exit 1
+          fi
+          echo -e "\ninsert monacard2.0's data"
+          php script_insert_monacard2.php
+          # api辺りの検証を後で追加。多分変わりそうに思うので一旦保留です。
