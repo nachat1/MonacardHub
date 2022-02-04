@@ -22,7 +22,8 @@ card.mona.jpにあるようにログイン機能やTwitter連携機能などの�
 7. /admin/script_insert_monacard2.phpを実行しMonacard2.0のにデータがテーブルに挿入されたことを確認します
 8. monacard収集用の/cron/cron_read_new_monacard.phpを5分以下(可能であれば2分)の定周期で実行するように設定します
 9. BANカードリスト同期用の/cron/cron_sync_ban_card_list.phpを5分の定周期で実行するように設定します  
-10. /adminのスクリプトをユーザーからアクセスできないようにします。/admin/.htaccessの'AuthUserFile'のパスを設定します。次に.htpasswdを作成補助するサイトなどを使って生成した文字列を貼り付けます
+10. 画像ダウンロード用の/cron/cron_download_images.phpを5分の定周期で実行するように設定します
+11. /adminのスクリプトをユーザーからアクセスできないようにします。/admin/.htaccessの'AuthUserFile'のパスを設定します。次に.htpasswdを作成補助するサイトなどを使って生成した文字列を貼り付けます
 
 ## サイトの仕組み
 このサイトは定期的にmonacardを収集しMySQLに格納します。  
