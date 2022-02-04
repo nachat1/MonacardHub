@@ -4,6 +4,7 @@ require_once __DIR__ . '/../classes/monacard1.php';
 require_once __DIR__ . '/../classes/asset.php';
 require_once __DIR__ . '/../classes/utils.php';
 require_once __DIR__ . '/../classes/database/card_table.php';
+require_once __DIR__ . '/../config/config.php';
 
 class Card {
 
@@ -107,6 +108,16 @@ class Card {
                 return str_replace('original', 'preview', $this->GetFilteredUrl());
             default:
                 return $this->imgur_url;
+        }
+
+    }
+
+    public function get_display_img_url() {
+
+        if(empty(Config::$URL_SHARE_IMAGE_URL)) {
+            return $this->get_filtered_url_ipfs();
+        } else {
+            return '/img/' . $this->get_filtered_cid();
         }
 
     }

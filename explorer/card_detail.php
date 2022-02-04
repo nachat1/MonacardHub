@@ -76,7 +76,7 @@ $asset_table_html .= '<tr><td>Reassignable</td><td>'.($asset->reassignable ? 'tr
 
                     <div style="width:100%; text-align: center;">
                         <a href="<?php Utils::sanitized_echo($card->get_filtered_url_ipfs()) ?>">
-                            <img class="card-body-bg" src="<?php Utils::sanitized_echo($card->get_filtered_url_ipfs()) ?>" />
+                            <img class="card-body-bg" src="<?php Utils::sanitized_echo($card->get_display_img_url()) ?>" />
                         </a>
                     </div>
 
