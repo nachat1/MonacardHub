@@ -3,9 +3,8 @@
 ## 機能
 Monacard explorer, api etc.
 
-## 環境
-PHP7.2, MySQL5.7  
-今のところはほぼ動きません。環境設定すらほぼできません。
+## 推奨環境
+PHP7.4, MySQL5.7  
 
 ## プロジェクトの目的
 card.mona.jpがなくなっても大丈夫なようにするためのプロジェクトです。OSSとしてmonacardを表示したりAPIを提供するサイトになります。  
