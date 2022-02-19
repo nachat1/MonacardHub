@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ 'ubuntu-latest' ]
-        php: [ '7.2' ]
+        php: [ '7.2', '7.3', '7.4' ]
     services:
       mysql:
         image: mysql:5.7
