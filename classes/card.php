@@ -75,6 +75,8 @@ class Card {
         $this->tag = $row["tag"];
         $this->tx_hash = $row["tx_hash"];
         $this->tx_index = $row["tx_index"];
+        $this->regist_time = $row["regist_time"];
+        $this->update_time = $row["update_time"];
 
     }
 
