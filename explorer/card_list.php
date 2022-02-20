@@ -14,7 +14,7 @@ foreach($cards as $row) {
     $card = new Card();
     $card->load_from_db_row($row);
     $table_html .= '<tr>';
-    $table_html .= '<td><a href="/explorer/card_detail.php?asset='.Utils::sanitize($card->get_common_name()) .'">'.Utils::sanitize($card->asset) .'</td>';
+    $table_html .= '<td><a href="/explorer/card_detail.php?asset='.Utils::sanitize($card->asset) .'">'.Utils::sanitize($card->get_common_name()) .'</td>';
     $table_html .= '<td>'.Utils::sanitize($card->card_name) .'</td>';
     $table_html .= '</tr>';
 }
