@@ -81,7 +81,7 @@ class Asset {
 
     public function load_from_api($asset_name) {
 
-        $asset_info = Counterparty::get_asset_info($asset_name);
+        $asset_info = Counterparty::get_assets_info([$asset_name])[0];
         $this->load_from_object($asset_info);
 
     }

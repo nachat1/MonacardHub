@@ -43,7 +43,7 @@ class Card_Table {
 
             $prepare->bindValue(1, $card->asset, PDO::PARAM_STR);
             $prepare->bindValue(2, $card->asset_longname, PDO::PARAM_STR);
-            $prepare->bindValue(3, $card->assetgroup, PDO::PARAM_STR);
+            $prepare->bindValue(3, $card->asset_group, PDO::PARAM_STR);
             $prepare->bindValue(4, $card->card_name, PDO::PARAM_STR);
             $prepare->bindValue(5, $card->owner_name, PDO::PARAM_STR);
             $prepare->bindValue(6, $card->imgur_url, PDO::PARAM_STR);

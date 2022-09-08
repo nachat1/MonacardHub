@@ -27,19 +27,19 @@ class Card {
     public $regist_time;
     public $update_time;
 
-    public function load_from_issuance_info($json) {
+    public function load_from_assetinfo_and_issuance_info($assetinfo_json, $issuance_json) {
 
         $parsed_description = new Parsed_Description();
-        $parsed_description->load_from_string($json->description);
+        $parsed_description->load_from_string($assetinfo_json->description);
 
         // Monacard2.0‚Ìd—l‚ğ–‚½‚µ‚Ä‚¢‚È‚¢ê‡
         if(!$parsed_description->is_available()) {
             return;
         }
 
-        $this->asset = $json->asset;
-        $this->asset_longname = $json->asset_longname;
-        $this->asset_group = $json->asset_group;
+        $this->asset = $assetinfo_json->asset;
+        $this->asset_longname = $assetinfo_json->asset_longname;
+        $this->asset_group = $assetinfo_json->assetgroup;
         $this->card_name = $parsed_description->card_name;
         $this->owner_name = $parsed_description->owner_name;
         $this->imgur_url = "";
@@ -47,8 +47,8 @@ class Card {
         $this->ver = $parsed_description->ver;
         $this->description = $parsed_description->add_description;
         $this->tag = $parsed_description->tag;
-        $this->tx_hash = $json->tx_hash;
-        $this->tx_index = $json->tx_index;
+        $this->tx_hash = $issuance_json->tx_hash;
+        $this->tx_index = $issuance_json->tx_index;
 
     }
 
@@ -64,7 +64,7 @@ class Card {
         $this->id = $row["id"];
         $this->asset = $row["asset"];
         $this->asset_longname = $row["asset_longname"];
-        $this->asset_group = $row["asset_group"];
+        $this->asset_group = $row["assetgroup"];
         $this->card_name = $row["name"];
         $this->owner_name = $row["issuer"];
         $this->imgur_url = $row["imgur"];

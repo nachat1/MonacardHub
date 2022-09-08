@@ -4,10 +4,10 @@ require_once __DIR__ . '/../config/config.php';
 
 class Counterparty {
 
-    static function get_asset_info($asset_name) {
+    static function get_assets_info($asset_name_list) {
 
-        $result = Counterparty_Reader::read_api('get_assets_info', ['assetsList' => [$asset_name]]);
-        return $result[0];
+        $result = Counterparty_Reader::read_api('get_assets_info', ['assetsList' => $asset_name_list]);
+        return $result;
 
     }
 
