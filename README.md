@@ -27,3 +27,6 @@ card.mona.jpにあるようにログイン機能やTwitter連携機能などの�
 ## サイトの仕組み
 このサイトは定期的にmonacardを収集しMySQLに格納します。  
 サイトのカード表示機能やAPIにアクセスがあるとMySQLに登録されたモナカードのデータを引っ張ってきて表示します。
+
+## 動いているサイト
+[MonacardHub by nachat server](https://monacardhub.nachatdayo.com/)
