@@ -19,10 +19,10 @@ class Config {
     //public static $COUNTERPARTY_API_URL = "https://mpchain.info/api/cb";
     //public static $COUNTERPARTY_API_URL = "https://wallet.monaparty.me/_api";
 
-	// 画像をダウンロードするサーバーのURL
+    // 画像をダウンロードするサーバーのURL
     // 画像をダウンロードしたくない場合は空文字 "" にしてください。
     // このURLが空文字でない場合はサイトの画像はローカルのものが使われます(表示早い)。空文字の場合はIPFS経由のものが使われます(表示遅い)。
-    public static $URL_SHARE_IMAGE_URL = "https://monacardhub.mona.jp/img/";
+    public static $URL_SHARE_IMAGE_URL = "https://monacardhub.nachatdayo.com/img/";
 
 }
 
