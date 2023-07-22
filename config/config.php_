@@ -2,26 +2,26 @@
 
 class Config {
 
-    // ���J����Ǘ��҂̖��O
+    // 公開する管理者の名前
     public static $ADMINISTRATOR_NAME = "Anonymous";
 
-    // �O��API�ƒʐM���鎞��SSL�ݒ�
-    // ��{�I�ɂ�true�ɂ��āA�e�X�g���ȂǂŃG���[���o��Ƃ������ꎞ�I��false�ɂ��Ă��������B
+    // 外部APIと通信する時のSSL設定
+    // 基本的にはtrueにして、テスト環境などでエラーが出るときだけ一時的にfalseにしてください。
     public static $SETTING_CURLOPT_SSL_VERIFYPEER = false;
 
-    // BAN�J�[�h�̃f�[�^���擾����T�[�o�[��API
-    // card.mona.jp�܂���MonacardHub�̃T�[�o�[��card_detail.php�w�肵�Ă��������B
-    // ���̃T�[�o�[�Ɉˑ����������Ō��肷��ꍇ�͋󕶎� "" �ɂ��Ă��������B
+    // BANカードのデータを取得するサーバーのAPI
+    // card.mona.jpまたはMonacardHubのサーバーのcard_detail.php指定してください。
+    // 他のサーバーに依存せず自分で決定する場合は空文字 "" にしてください。
     public static $URL_SHARE_BAN_LIST = "https://card.mona.jp/api/ban_list.php";
 
-    // counterparty api��URL�BAPI�m�[�h�������Ă���Ƃ��͕ύX���Ă��������B
+    // counterparty apiのURL。APIノードが落ちているときは変更してください。
     public static $COUNTERPARTY_API_URL = "https://monapa.electrum-mona.org/_api";
     //public static $COUNTERPARTY_API_URL = "https://mpchain.info/api/cb";
     //public static $COUNTERPARTY_API_URL = "https://wallet.monaparty.me/_api";
 
-    // �摜���_�E�����[�h����T�[�o�[��URL
-    // �摜���_�E�����[�h�������Ȃ��ꍇ�͋󕶎� "" �ɂ��Ă��������B
-    // ����URL���󕶎��łȂ��ꍇ�̓T�C�g�̉摜�̓��[�J���̂��̂��g���܂�(�\������)�B�󕶎��̏ꍇ��IPFS�o�R�̂��̂��g���܂�(�\���x��)�B
+    // 画像をダウンロードするサーバーのURL
+    // 画像をダウンロードしたくない場合は空文字 "" にしてください。
+    // このURLが空文字でない場合はサイトの画像はローカルのものが使われます(表示早い)。空文字の場合はIPFS経由のものが使われます(表示遅い)。
     public static $URL_SHARE_IMAGE_URL = "https://monacardhub.nachatdayo.com/img/";
 
 }
